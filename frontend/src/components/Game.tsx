@@ -49,7 +49,10 @@ export default function Game(){
     }, [socket]);
 
     if(!socket) return <>
-    <div>Connecting....</div>
+        <div className="flex justify-center items-center h-screen w-screen bg-zinc-950 md:p-5 p-3">
+            <img src="/connecting.png" className="rounded-3xl filter drop-shadow-md" alt="" />
+        </div>
+
     </>
     return <>
     <div className="flex justify-center items-center h-screen w-screen bg-zinc-900 text-white md:p-5 p-3">
@@ -71,7 +74,7 @@ export default function Game(){
 
         {!gameStarted && waitingForPlayer && ( 
             <div className="w-full h-full flex flex-col sm:justify-center items-center">
-                <p>Waiting for Player 2 to join...</p>
+                <p className="text-xl font-bold">Waiting for Player 2 to join...</p>
             </div>
         )}
 
