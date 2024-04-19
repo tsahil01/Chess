@@ -46,8 +46,10 @@ export function ChessBoard({ board, socket, setBoard, chess }: {
                             }
 
                         }} 
-                        key={i * 8 + j} className={`p-1 text-blue-500 items-center justify-center flex h-10 md:h-16 lg:h-24 xl:h-28 w-10 md:w-16 lg:w-24 xl:w-28 text-xs ${i % 2 === 0 ? j % 2 === 0 ? 'bg-white' : 'bg-gray-800' : j % 2 === 0 ? 'bg-slate-950' : 'bg-white'}`}>
-                            {square ? square.type : ''}
+                        key={i * 8 + j} className={` text-blue-500 items-center justify-center flex h-10 md:h-16 lg:h-24 xl:h-28 w-10 md:w-16 lg:w-24 xl:w-28 text-xs ${i % 2 === 0 ? j % 2 === 0 ? 'bg-white' : 'bg-gray-800' : j % 2 === 0 ? 'bg-gray-800' : 'bg-white'}`}>
+                            {square ? <img className="hover:bg-blue-500" src={`/${square?.color === "b" ? 
+                                square?.type : `${square?.type.toUpperCase()}`
+                            }.png`} alt="" /> : ''}
                         </div>
                         )
 })

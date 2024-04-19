@@ -22,7 +22,6 @@ export default function Game(){
 
             switch(message.type){   
                 case INIT_GAME:
-                    // setChess(new Chess());
                     setBoard(chess.board());
                     console.log('Game is starting');
                     break;
