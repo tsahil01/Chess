@@ -3,11 +3,11 @@ import { useNavigate } from "react-router-dom";
 export default function Landing() {
   const navigate = useNavigate();
   return (
-    <div className="flex justify-center items-center h-screen w-screen bg-zinc-900 text-white p-5">
+    <div className="flex justify-center items-center h-screen w-screen bg-zinc-900 text-white md:p-5 p-3">
       <div className="grid md:grid-cols-2 gap-3 items-center">
 
         <div className="w-full h-full flex justify-center  items-center">
-          <img src="/Chess.png" alt="" className="rounded-xl"/>
+          <img src="/chess3.png" alt="" className="rounded-xl"/>
         </div>
 
         <div className="w-full h-full flex flex-col justify-center items-center ">
