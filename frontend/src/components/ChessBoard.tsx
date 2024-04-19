@@ -14,6 +14,7 @@ export function ChessBoard({ board, socket, setBoard, chess }: {
 }
 ){
     const [from, setFrom] = useState<Square | null>(null);
+    const [selected, setSelected] = useState<Square | null>(null);
 
     return (
         <div>
@@ -21,11 +22,11 @@ export function ChessBoard({ board, socket, setBoard, chess }: {
                 {board.map((row, i) => (
                     row.map((square, j) => {
                         const squareRepresentation = String.fromCharCode(97 + j) + (8 - i) as Square;
-
                         return (
                         <div onClick={() => {
                             if(!from){
                                 setFrom(square?.square ?? null);
+                                setSelected(square?.square ?? null);
                             } else {
                                 socket.send(JSON.stringify({
                                     type: MOVE,
@@ -38,16 +39,16 @@ export function ChessBoard({ board, socket, setBoard, chess }: {
                                 }))
                                 console.log(from, squareRepresentation);
                                 setFrom(null);
+                                setSelected(null);
                                 chess.move({
                                     from: from,
                                     to: squareRepresentation
                                 });
                                 setBoard(chess.board());
                             }
-
                         }} 
                         key={i * 8 + j} className={` text-blue-500 items-center justify-center flex h-10 md:h-16 lg:h-24 xl:h-28 w-10 md:w-16 lg:w-24 xl:w-28 text-xs ${i % 2 === 0 ? j % 2 === 0 ? 'bg-white' : 'bg-gray-800' : j % 2 === 0 ? 'bg-gray-800' : 'bg-white'}`}>
-                            {square ? <img className="hover:bg-blue-500" src={`/${square?.color === "b" ? 
+                            {square ? <img className= {`hover:bg-blue-500 ${square?.square === selected ? 'bg-red-500' : ''}`} src={`/${square?.color === "b" ? 
                                 square?.type : `${square?.type.toUpperCase()}`
                             }.png`} alt="" /> : ''}
                         </div>

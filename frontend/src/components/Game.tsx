@@ -11,6 +11,10 @@ export default function Game(){
     const socket = useSocket();
     const [chess, setChess] = useState(new Chess());
     const [board, setBoard] = useState(chess.board());
+    const [gameStarted, setGameStarted] = useState(false);
+    const [waitingForPlayer, setWaitingForPlayer] = useState(false);
+    const [color, setColor] = useState('');
+
 
     useEffect(() => {
         if(!socket) {
@@ -23,14 +27,20 @@ export default function Game(){
             switch(message.type){   
                 case INIT_GAME:
                     setBoard(chess.board());
+                    setGameStarted(true);
+                    setWaitingForPlayer(false); 
                     console.log('Game is starting');
+                    setColor(message.payload.color);
                     break;
+
                 case MOVE:
                     const move = message.payload;
+                    console.log("MOVE: ", move);
                     chess.move(move);
                     setBoard(chess.board());
                     console.log('Move is being made');
                     break;
+
                 case GAME_OVER:
                     console.log('Game is over');
                     break;
@@ -48,14 +58,28 @@ export default function Game(){
             <ChessBoard chess={chess} setBoard = {setBoard} board = {board} socket = {socket}/>
         </div>
 
-        <div className="w-full h-full flex flex-col sm:justify-center items-center ">
-          <button onClick={()=>{
-            socket.send(JSON.stringify({
-                type: INIT_GAME
-            }))
-          }} className="text-white rounded-xl p-3 text-sm hover:border font-bold bg-blue-900">Start Game</button>
-        </div>
-        
+        {!gameStarted && !waitingForPlayer && (
+            <div className="w-full h-full flex flex-col sm:justify-center items-center">
+                <button onClick={() => {
+                    socket.send(JSON.stringify({
+                        type: INIT_GAME
+                    }))
+                    setWaitingForPlayer(true);
+                }} className="text-white rounded-xl p-3 text-sm hover:border font-bold bg-blue-900">Start Game</button>
+            </div>
+        )}
+
+        {!gameStarted && waitingForPlayer && ( 
+            <div className="w-full h-full flex flex-col sm:justify-center items-center">
+                <p>Waiting for Player 2 to join...</p>
+            </div>
+        )}
+
+        {gameStarted && (
+            <div className="w-full h-full flex flex-col sm:justify-center items-center">
+                <p className="text-xl font-bold">Your asset color is {color}</p>
+            </div>
+        )}
       </div>
     </div>
     </>
