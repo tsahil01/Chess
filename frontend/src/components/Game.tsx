@@ -76,6 +76,8 @@ export default function Game(){
                         type: INIT_GAME
                     }))
                     setWaitingForPlayer(true);
+                    setChess(new Chess());
+
                 }} className="text-white rounded-xl p-3 text-sm hover:border font-bold bg-blue-900">Start Game</button>
             </div>
         )}
@@ -88,13 +90,15 @@ export default function Game(){
 
         {gameStarted && (
             <div className="w-full h-full flex flex-col sm:justify-center items-center gap-3">
-                <p className="text-xl font-bold">Your asset color is {color}</p>
+                <p className="text-xl font-bold mb-3">Your asset color is {color}</p>
                 {turn ? <p className="text-xl font-bold">Your Turn</p> : <p className="text-xl font-bold">Opponent's Turn</p>}
-                <p className="text-sm font-bold"> Your Opponent Moves: </p>
-                <div className="h-20 overflow-auto w-52 flex flex-col p-2">
-                {moves.map((move, i) => (
-                    <p className="text-center" key={i}>{move.from} {`->`} {move.to}</p>
-                ))}
+                <div className="flex flex-col justify-center text-center">
+                    <p className="text-sm mb-1"> Your Opponent Moves: </p>
+                    <div className="h-20 md:h-48 overflow-auto w-52 flex flex-col p-2">
+                    {moves.map((move, i) => (
+                        <p className="text-center" key={i}>{move.from} {`->`} {move.to}</p>
+                    ))}
+                    </div>
                 </div>
             </div>
         )}
