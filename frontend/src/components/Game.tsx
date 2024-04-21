@@ -66,7 +66,7 @@ export default function Game(){
     <div className="flex justify-center items-center h-screen w-screen bg-zinc-900 text-white md:p-5 p-3">
       <div className="grid md:grid-cols-3 w-full h-full">
         <div className="flex justify-center md:col-span-2 w-full h-full items-center overflow-auto">
-            <ChessBoard chess={chess} setBoard = {setBoard} board = {board} socket = {socket} setTurn = {setTurn}/>
+            <ChessBoard chess={chess} setBoard = {setBoard} board = {board} socket = {socket} setTurn = {setTurn} turn = {turn}/>
         </div>
 
         {!gameStarted && !waitingForPlayer && (
