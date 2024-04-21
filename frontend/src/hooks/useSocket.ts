@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const WS_URL = 'wss://192.168.1.6:8080';
+const WS_URL = 'ws://3.88.162.68:8080';
 
 export const useSocket = () => {
     const [socket, setSocket] = useState<WebSocket | null>(null);

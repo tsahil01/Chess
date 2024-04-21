@@ -106,6 +106,9 @@ export default function Game(){
         {gameOver && (
             <div className="w-full h-full flex flex-col sm:justify-center items-center">
                 <p className="text-xl font-bold">Game Over</p>
+                <p className="text-xl font-bold">
+                Winner is {chess.turn() === 'w' ? 'Black' : 'White'}
+                </p>
             </div>
         )}
       </div>
